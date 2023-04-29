@@ -46,17 +46,27 @@ public class Main {
         }
 
         msg.addAll(ender);
+        String A = "0x67452301";
+        String B = "0xefcdab89";
+        String C = "0x98badcfe";
+        String D = "0x10325476";
+        long word_A = Long.decode(A);
+        long word_B = Long.decode(B);
+        long word_C = Long.decode(C);
+        long word_D = Long.decode(D);
+
+        System.out.println(word_B);
 
     }
-    public int fun_F(int x, int y, int z){
+    public long fun_F(long x, long y, long z){
         return (((x) & (y)) | ((~x) & (z)));
     }
 
-    public int fun_G(int x, int y, int z){
+    public long fun_G(long x, long y, long z){
         return (((x) & (y)) | ((x) & (z)) | ((y) & (z)));
     }
 
-    public int fun_H(int x, int y, int z){
+    public long fun_H(long x, long y, long z){
         return ((x) ^ (y) ^ (z));
     }
 
