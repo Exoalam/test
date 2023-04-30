@@ -136,82 +136,18 @@ public class Main {
         System.out.println(word_C);
         System.out.println(word_D);
 
-        ArrayList<Integer> result = new ArrayList<>();
-        String res = Long.toBinaryString(word_A);
-        StringBuilder stringBuilder2 = new StringBuilder(res);
-        stringBuilder.reverse();
-        StringBuilder output;
-        for(int i = 0; i < res.length(); i=i+8){
-            if(i+8<=res.length()){
-                result.add(Integer.parseInt(String.valueOf(new StringBuilder(stringBuilder2.substring(i, i + 8))),2));
-            }
-            else{
-                result.add(Integer.parseInt(String.valueOf(new StringBuilder(stringBuilder2.substring(i, res.length()))),2));
-            }
-        }
+        ByteBuffer buffer = ByteBuffer.allocate(32);
+        buffer.putLong(wordA);
+        buffer.putLong(wordB);
+        buffer.putLong(wordC);
+        buffer.putLong(wordD);
 
-        ArrayList<String> revArrayList = new ArrayList<String>();
-        for (int i = result.size() - 1; i >= 0; i--) {
+        String mdDigest = buffer.array()
+                                .stream()
+                                .mapToObj(b -> String.format("%02x", b & 0xFF))
+                                .collect(Collectors.joining());
 
-            // Append the elements in reverse order
-            revArrayList.add(Integer.toHexString(result.get(i)));
-        }
-
-        res = Long.toBinaryString(word_B);
-        res = '0' + res;
-        stringBuilder2 = new StringBuilder(res);
-        stringBuilder.reverse();
-        result.clear();
-
-        for(int i = 0; i < res.length(); i=i+8){
-            if(i+8<=res.length()){
-                result.add(Integer.parseInt(String.valueOf(new StringBuilder(stringBuilder2.substring(i, i + 8))),2));
-            }
-            else{
-                result.add(Integer.parseInt(String.valueOf(new StringBuilder(stringBuilder2.substring(i, res.length()))),2));
-            }
-        }
-        System.out.println(result);
-        for (int i = result.size() - 1; i >= 0; i--) {
-
-            // Append the elements in reverse order
-            revArrayList.add(Integer.toHexString(result.get(i)));
-        }
-        res = Long.toBinaryString(word_C);
-        stringBuilder2 = new StringBuilder(res);
-        stringBuilder.reverse();
-        result.clear();
-        for(int i = 0; i < res.length(); i=i+8){
-            if(i+8<=res.length()){
-                result.add(Integer.parseInt(String.valueOf(new StringBuilder(stringBuilder2.substring(i, i + 8))),2));
-            }
-            else{
-                result.add(Integer.parseInt(String.valueOf(new StringBuilder(stringBuilder2.substring(i, res.length()))),2));
-            }
-        }
-        for (int i = result.size() - 1; i >= 0; i--) {
-
-            // Append the elements in reverse order
-            revArrayList.add(Integer.toHexString(result.get(i)));
-        }
-        res = Long.toBinaryString(word_D);
-        stringBuilder2 = new StringBuilder(res);
-        stringBuilder.reverse();
-        result.clear();
-        for(int i = 0; i < res.length(); i=i+8){
-            if(i+8<=res.length()){
-                result.add(Integer.parseInt(String.valueOf(new StringBuilder(stringBuilder2.substring(i, i + 8))),2));
-            }
-            else{
-                result.add(Integer.parseInt(String.valueOf(new StringBuilder(stringBuilder2.substring(i, res.length()))),2));
-            }
-        }
-        for (int i = result.size() - 1; i >= 0; i--) {
-
-            // Append the elements in reverse order
-            revArrayList.add(Integer.toHexString(result.get(i)));
-        }
-        System.out.println(revArrayList);
+        System.out.println(mdDigest);
     }
     public static long fun_F(long x, long y, long z){
         return (((x) & (y)) | ((~x) & (z)));
