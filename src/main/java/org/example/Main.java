@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,8 +21,9 @@ public class Main {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 
-        String raw_msg = "The saddest aspect of life right now is that science gathers knowledge faster than society gathers wisdom.";
-        System.out.println("Input Message: " + raw_msg);
+        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("Enter Message: ");
+        String raw_msg = myObj.nextLine();  // Read user input
         ArrayList<Integer> msg = new ArrayList<>();
         for (int i = 0; i < raw_msg.length(); i++) {
             msg.add((int)raw_msg.charAt(i));
