@@ -21,6 +21,7 @@ public class Main {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 
         String raw_msg = "The saddest aspect of life right now is that science gathers knowledge faster than society gathers wisdom.";
+        System.out.println("Input Message: " + raw_msg);
         ArrayList<Integer> msg = new ArrayList<>();
         for (int i = 0; i < raw_msg.length(); i++) {
             msg.add((int)raw_msg.charAt(i));
@@ -135,10 +136,6 @@ public class Main {
             word_D = (word_D + DD) % Long.decode("0x100000000");
 
         }
-        System.out.println(word_A);
-        System.out.println(word_B);
-        System.out.println(word_C);
-        System.out.println(word_D);
 
         ByteBuffer buffer = ByteBuffer.allocate(32).order(ByteOrder.LITTLE_ENDIAN);
         buffer.putLong(word_A);
@@ -154,7 +151,7 @@ public class Main {
                 })
                 .collect(Collectors.joining());
 
-        System.out.println(mdDigest);
+        System.out.println("Hash: " + mdDigest);
     }
     public static long fun_F(long x, long y, long z){
         return (((x) & (y)) | ((~x) & (z)));
