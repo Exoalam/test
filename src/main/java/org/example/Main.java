@@ -5,6 +5,10 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -136,16 +140,19 @@ public class Main {
         System.out.println(word_C);
         System.out.println(word_D);
 
-        ByteBuffer buffer = ByteBuffer.allocate(32);
-        buffer.putLong(wordA);
-        buffer.putLong(wordB);
-        buffer.putLong(wordC);
-        buffer.putLong(wordD);
+        ByteBuffer buffer = ByteBuffer.allocate(32).order(ByteOrder.LITTLE_ENDIAN);
+        buffer.putLong(word_A);
+        buffer.putLong(word_B);
+        buffer.putLong(word_C);
+        buffer.putLong(word_D);
 
-        String mdDigest = buffer.array()
-                                .stream()
-                                .mapToObj(b -> String.format("%02x", b & 0xFF))
-                                .collect(Collectors.joining());
+        String mdDigest = IntStream.range(0, buffer.capacity())
+                .mapToObj(i -> {
+                    int value = buffer.get(i) & 0xFF;
+                    String hexString = Integer.toHexString(value);
+                    return hexString.startsWith("0") ? hexString.substring(1) : hexString;
+                })
+                .collect(Collectors.joining());
 
         System.out.println(mdDigest);
     }
